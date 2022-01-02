@@ -7,7 +7,6 @@ func loadData() -> String{
         return ""
     }
 }
-
 var fishes = loadData().split(separator: ",").map {lanternFish(age: Int($0)!)}
 var fishBabys = [lanternFish]()
 
@@ -26,6 +25,8 @@ for _ in 1 ... 80  {
 }
 
 print("total fishes: \(fishes.count)")
+
+
 
 class lanternFish {
     
