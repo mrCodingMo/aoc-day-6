@@ -25,9 +25,6 @@ for _ in 1 ... 80  {
 }
 
 print("total fishes: \(fishes.count)")
-
-
-
 class lanternFish {
     
     var age = 6
