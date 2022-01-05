@@ -7,46 +7,31 @@ func loadData() -> String{
         return ""
     }
 }
-var fishes = loadData().split(separator: ",").map {lanternFish(age: Int($0)!)}
-var fishBabys = [lanternFish]()
 
-for _ in 1 ... 80  {
-    
-    if fishBabys.count != 0 {
-        fishes.append(contentsOf: fishBabys)
-        fishBabys.removeAll()
-    }
-    
-    for fish in fishes {
-        if let baby = fish.increaseAge() {
-            fishBabys.append(baby)
-        }
-    }
+var fishAges = loadData().split(separator: ",").map {Int($0)!}
+var fishes = Array(repeating: 0, count: 10)
+
+for i in 0 ... 8 {
+    fishes[i] = fishAges.filter {$0 == i}.count
 }
 
-print("total fishes: \(fishes.count)")
-class lanternFish {
+for day in 1 ... 256  {
     
-    var age = 6
+    //Create babies
+    fishes[9] += fishes[0]
     
-    init(age: Int) {
-        self.age = age
+    //Reset age
+    fishes[7] += fishes[0]
+    fishes[0] = 0
+    
+    var newFishes = Array(repeating: 0, count: 10)
+    
+    for i in stride(from: 9, to: 0, by: -1) {
+        newFishes[i - 1] = fishes[i]
     }
     
-    init() {
-        age += 3
-    }
-
-    func increaseAge() -> lanternFish? {
-        age -= 1
-        
-        if age == 0 {
-            return lanternFish()
-        } else if age == -1 {
-            age = 6
-        }
-       
-        return nil
-    }
+    fishes = newFishes
 }
+
+print("total: \(fishes.reduce(0, +))")
 
